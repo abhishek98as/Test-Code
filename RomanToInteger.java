@@ -1,44 +1,52 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 public class RomanToInteger {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a Roman numeral: ");
-        String romanNumeral = scanner.nextLine().toUpperCase();
 
-        int result = romanToInteger(romanNumeral);
-        System.out.println("The integer equivalent is: " + result);
-
-    }
-
-    private static int romanToInteger(String s) {
-        Map<Character, Integer> romanMap = new HashMap<>();
-        romanMap.put('I', 1);
-        romanMap.put('V', 5);
-        romanMap.put('X', 10);
-        romanMap.put('L', 50);
-        romanMap.put('C', 100);
-        romanMap.put('D', 500);
-        romanMap.put('M', 1000);
-
+    public static int romanToInteger(String roman) {
         int result = 0;
-        int prevValue = 0;
 
-        for (int i = s.length() - 1; i >= 0; i--) {
-            int currentValue = romanMap.get(s.charAt(i));
+        for (int i = 0; i < roman.length(); i++) {
+            int current = charToValue(roman.charAt(i));
 
-            if (currentValue < prevValue) {
-                result -= currentValue;
+            if (i + 1 < roman.length()) {
+                int next = charToValue(roman.charAt(i + 1));
+
+                if (current < next) {
+                    result += (next - current);
+                    i++;  
+                } else {
+                    result += current;
+                }
             } else {
-                result += currentValue;
+                result += current;
             }
-
-            prevValue = currentValue;
         }
 
         return result;
     }
-}
 
+    public static int charToValue(char romanChar) {
+        switch (romanChar) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+            default:
+                throw new IllegalArgumentException("Invalid Roman numeral character: " + romanChar);
+        }
+    }
+
+    public static void main(String[] args) {
+        String romanNumeral = "XII";
+        int result = romanToInteger(romanNumeral);
+        System.out.println("Roman numeral " + romanNumeral + " is equal to " + result);
+    }
+}

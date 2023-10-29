@@ -1,9 +1,9 @@
-function binarySortDescending(arr) {
-    const n = arr.length;
+function bubbleSort(arr) {
+    const Arrlength = arr.length;
 
-    for (let i = 0; i < n - 1; i++) {
-        for (let j = 0; j < n - i - 1; j++) {
-            if (binaryValue(arr[j]) < binaryValue(arr[j + 1])) {
+    for (let i = 0; i < Arrlength - 1; i++) {
+        for (let j = 0; j < Arrlength - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
                 const temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -14,13 +14,6 @@ function binarySortDescending(arr) {
     return arr;
 }
 
-function binaryValue(num) {
-    return (num >>> 0).toString(2);
-}
-
 const inputArray = [5, 3, 9, 7, 1];
-const sortedArray = binarySortDescending(inputArray);
+const sortedArray = bubbleSort(inputArray);
 console.log(sortedArray);
-
-
-
